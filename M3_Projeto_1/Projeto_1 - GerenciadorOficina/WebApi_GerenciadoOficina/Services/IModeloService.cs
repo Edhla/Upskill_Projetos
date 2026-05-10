@@ -1,12 +1,9 @@
 ﻿using LibGerenciadorOficina.Models;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace LibGerenciadorOficina.Repositories
+namespace WebApi_GerenciadoOficina.Services
 {
-    public interface IModeloRepository
+    public interface IModeloService
     {
         List<Modelo> GetAll();
         Modelo GetById(int id);

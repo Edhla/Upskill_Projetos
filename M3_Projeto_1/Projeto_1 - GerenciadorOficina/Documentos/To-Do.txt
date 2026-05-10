@@ -48,15 +48,12 @@ To-do
 
 [v] - Criar DTO
 
-[] - Criar Repositorios:
-
-GetAll
-Marca
-Modelo
-Veiculo
-GetByID
-Inset
-Update
-Delete
+[v] - Criar Repositorios:
+	[v] - Criação
+	[v] - GetAll
+	[v] - GetByID
+	[v] - Inset
+	[v] - Update
+	[v] - Delete
 
 [] - Criar WebApi

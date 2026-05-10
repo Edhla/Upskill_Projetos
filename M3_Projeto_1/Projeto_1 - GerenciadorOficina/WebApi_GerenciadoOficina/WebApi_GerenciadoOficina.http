@@ -1,0 +1,6 @@
+@WebApi_GerenciadoOficina_HostAddress = http://localhost:5051
+
+GET {{WebApi_GerenciadoOficina_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
