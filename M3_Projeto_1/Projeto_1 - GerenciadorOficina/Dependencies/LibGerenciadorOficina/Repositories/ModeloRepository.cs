@@ -11,7 +11,7 @@ namespace LibGerenciadorOficina.Repositories
     public class ModeloRepository : IModeloRepository
     {
         internal string ConnectionString = "";
-        public ModeloRepository(string tagRepo)
+        public void setDataBase(string tagRepo)
         {
             ConnectionString = Conection2Repo.GetRepoConection(tagRepo);
         }

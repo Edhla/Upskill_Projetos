@@ -11,7 +11,7 @@ namespace LibGerenciadorOficina.Repositories
     public class VeiculoRepository : IVeiculoRepository
     {
         internal string ConnectionString = "";
-        public VeiculoRepository(string tagRepo) 
+        public void setDataBase(string tagRepo)
         {
             ConnectionString = Conection2Repo.GetRepoConection(tagRepo);
         }

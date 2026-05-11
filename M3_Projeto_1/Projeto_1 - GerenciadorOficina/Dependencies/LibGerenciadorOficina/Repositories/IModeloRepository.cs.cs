@@ -8,6 +8,7 @@ namespace LibGerenciadorOficina.Repositories
 {
     public interface IModeloRepository
     {
+        void setDataBase(string tagRepo);
         List<Modelo> GetAll();
         Modelo GetById(int id);
 

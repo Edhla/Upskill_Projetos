@@ -8,6 +8,7 @@ namespace LibGerenciadorOficina.Repositories
 {
     public interface IMarcaRepository
     {
+        void setDataBase(string tagRepo);
         List<Marca> GetAll();
         Marca GetById(int id);
 

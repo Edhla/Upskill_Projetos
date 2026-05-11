@@ -8,6 +8,7 @@ namespace LibGerenciadorOficina.Repositories
 {
     public interface IVeiculoRepository
     {
+        void setDataBase(string tagRepo);
         List<Veiculo> GetAll();
         Veiculo GetById(int id);
 

@@ -1,10 +1,10 @@
+using LibGerenciadorOficina.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
-using WebApi_GerenciadoOficina.Services;
+using WebAppiGnOfficina.Services;
 
-namespace WebApi_GerenciadoOficina
+namespace WebAppiGnOfficina
 {
     public class Program
     {
@@ -61,8 +61,8 @@ namespace WebApi_GerenciadoOficina
                 });
 
                 c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
-    {
         {
+            {
             new Microsoft.OpenApi.Models.OpenApiSecurityScheme
             {
                 Reference = new Microsoft.OpenApi.Models.OpenApiReference
@@ -76,9 +76,12 @@ namespace WebApi_GerenciadoOficina
     });
             });
 
-            //builder.Services.AddScoped<IMarcaService, MarcaService>();
-            //builder.Services.AddScoped<IModeloService, ModeloService>();
-            //builder.Services.AddScoped<IVeiculoService, VeiculoService>();
+            builder.Services.AddScoped<IMarcaRepository, MarcaRepository>();
+            builder.Services.AddScoped<IMarcaService, MarcaService>();
+            builder.Services.AddScoped<IModeloRepository, ModeloRepository>();
+            builder.Services.AddScoped<IModeloService, ModeloService>();
+            builder.Services.AddScoped<IVeiculoRepository, VeiculoRepository>();
+            builder.Services.AddScoped<IVeiculoService, VeiculoService>();
 
             builder.Services.AddAuthorization();
 
@@ -95,6 +98,12 @@ namespace WebApi_GerenciadoOficina
 
             #region Endpoints
             app.MapGet("/", () => "WebApi - Gerenciador de oficina");
+            app.MapGet("/marcas", (IMarcaService service) =>
+            {
+
+                return service.GetAll();
+            });
+
             #endregion
 
             app.Run();

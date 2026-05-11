@@ -1,13 +1,16 @@
 ﻿using LibGerenciadorOficina.Models;
-using Microsoft.Data.SqlClient;
+using LibGerenciadorOficina.Repositories;
 
-namespace WebApi_GerenciadoOficina.Services
+namespace WebAppiGnOfficina.Services
 {
     public class VeiculoService: IVeiculoService
     {
-        public VeiculoService(string tagRepo)
-        {
+        private readonly IVeiculoRepository _repo;
 
+        public VeiculoService(IVeiculoRepository repo)
+        {
+            _repo = repo;
+            _repo.setDataBase("DB_GerenciadorOficinaTeste");
         }
         public List<Veiculo> GetAll()
         {
@@ -23,17 +26,17 @@ namespace WebApi_GerenciadoOficina.Services
 
         }
 
-        public int Insert(Veiculo marca, SqlTransaction trans)
+        public int Insert(Veiculo marca)
         {
             return 0;
         }
 
-        public void Update(Veiculo marca, SqlTransaction trans)
+        public void Update(Veiculo marca)
         {
 
         }
 
-        public void Delete(int id, SqlTransaction trans)
+        public void Delete(int id)
         {
 
         }
