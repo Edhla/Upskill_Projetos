@@ -1,0 +1,59 @@
+File - Dependencias
+
+        - Lib_GestaoOficina
+
+                -GestaoOficina
+
+                - Teste_LibGerenciadorOficina
+
+        - UtilsLib
+
+                -DalPro
+
+File - Template Gerenciador de Oficina
+
+File - GerenciadorOficina
+
+        - WebApi
+
+
+
+Data Base
+
+Table name: Marca
+    ID: int
+    NomeMarca: varchar
+
+TABLE name: Modelo
+    ID: int
+    NomeModelo: varchar
+
+TABLE Name Veiculo
+    Id: int
+    Marca: int
+    Modelo: int
+    Ano: int
+    UltimaInspecao: date
+    Estado: bit
+
+Repositories
+
+GetAll, GetById, Insert, Update, Delete
+
+Os serviços ficam na web Api?, junto com as regras de negocio
+
+To-do
+
+[ v] - Criar Modelos
+
+[v] - Criar DTO
+
+[v] - Criar Repositorios:
+	[v] - Criação
+	[v] - GetAll
+	[v] - GetByID
+	[v] - Inset
+	[v] - Update
+	[v] - Delete
+
+[] - Criar WebApi
