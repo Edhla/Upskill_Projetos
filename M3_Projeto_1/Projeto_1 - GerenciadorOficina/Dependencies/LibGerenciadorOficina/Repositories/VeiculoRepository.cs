@@ -36,8 +36,9 @@ namespace LibGerenciadorOficina.Repositories
             return DALPro.Query<Veiculo>(sql, param).FirstOrDefault();
         }
 
-        public int Insert(Veiculo veiculo, SqlTransaction trans)
+        public int Insert(Veiculo veiculo)
         {
+            DALPro.ConnectionString = ConnectionString;
             string sql = @"INSERT INTO Veiculo
                         (Marca,Modelo,Ano,UltimaInspecao,Estado)
                         VALUES
@@ -53,32 +54,37 @@ namespace LibGerenciadorOficina.Repositories
             {"@Estado", veiculo.Estado}
         };
 
-            return Convert.ToInt32(DALPro.ExecuteScalar(sql, param, trans));
+            return TransactionHelper.ExecuteScalar(sql, param);
 
         }
 
-        public void Update(Veiculo veiculo, SqlTransaction trans)
+        public void Update(Veiculo veiculo)
         {
-            string sql = @"INSERT INTO Veiculo
-                        (Marca,Modelo,Ano,UltimaInspecao,Estado)
-                        VALUES
-                        (@Marca,@Modelo,@Ano,@UltimaInspecao,@Estado);
-                        SELECT SCOPE_IDENTITY();";
+            DALPro.ConnectionString = ConnectionString;
+            string sql = @"UPDATE Veiculo
+                         SET Marca = @Marca,
+                         Modelo = @Modelo,
+                         Ano = @Ano,
+                         UltimaInspecao = @UltimaInspecao,
+                         Estado = @Estado
+                         WHERE ID = @IdVeiculo;";
 
             var param = new Dictionary<string, object>
             {
+                {"@IdVeiculo", veiculo.Id},
                 {"@Marca", veiculo.Marca},
                 {"@Modelo", veiculo.Modelo},
                 {"@Ano", veiculo.Ano},
                 {"@UltimaInspecao", veiculo.UltimaInspecao},
                 {"@Estado", veiculo.Estado}
             };
-            DALPro.Execute(sql, param, trans);
+            TransactionHelper.Execute(sql, param);
 
         }
 
-        public void Delete(int id, SqlTransaction trans)
+        public void Delete(int id)
         {
+            DALPro.ConnectionString = ConnectionString;
             string sql = "DELETE FROM Veiculo WHERE Id=@id";
 
             var param = new Dictionary<string, object>
@@ -86,7 +92,7 @@ namespace LibGerenciadorOficina.Repositories
                 {"@id", id}
             };
 
-            DALPro.Execute(sql, param, trans);
+            TransactionHelper.Execute(sql, param);
         }
     }
 }

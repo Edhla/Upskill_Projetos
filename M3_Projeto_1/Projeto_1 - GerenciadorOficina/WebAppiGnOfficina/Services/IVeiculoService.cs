@@ -1,15 +1,16 @@
-﻿using LibGerenciadorOficina.Models;
+﻿using LibGerenciadorOficina.DTOs;
+using LibGerenciadorOficina.Models;
 
 namespace WebAppiGnOfficina.Services
 {
     public interface IVeiculoService
     {
-        List<Veiculo> GetAll();
-        Veiculo GetById(int id);
+        List<VeiculoDTO> GetAll();
+        VeiculoDTO GetById(int id);
 
-        int Insert(Veiculo veiculo);
+        int Insert(VeiculoDTO veiculo);
 
-        void Update(Veiculo veiculo);
+        void Update(VeiculoDTO veiculo);
 
         void Delete(int id);
     }

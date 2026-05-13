@@ -12,10 +12,10 @@ namespace LibGerenciadorOficina.Repositories
         List<Marca> GetAll();
         Marca GetById(int id);
 
-        int Insert(Marca marca, SqlTransaction trans);
+        int Insert(Marca marca);
 
-        void Update(Marca marca, SqlTransaction trans);
+        void Update(Marca marca);
 
-        void Delete(int id, SqlTransaction trans);
+        void Delete(int id);
     }
 }

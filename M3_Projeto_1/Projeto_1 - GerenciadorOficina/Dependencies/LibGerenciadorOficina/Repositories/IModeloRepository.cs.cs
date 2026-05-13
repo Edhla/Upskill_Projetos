@@ -12,10 +12,10 @@ namespace LibGerenciadorOficina.Repositories
         List<Modelo> GetAll();
         Modelo GetById(int id);
 
-        int Insert(Modelo modelo, SqlTransaction trans);
+        int Insert(Modelo modelo);
 
-        void Update(Modelo modelo, SqlTransaction trans);
+        void Update(Modelo modelo);
 
-        void Delete(int id, SqlTransaction trans);
+        void Delete(int id);
     }
 }

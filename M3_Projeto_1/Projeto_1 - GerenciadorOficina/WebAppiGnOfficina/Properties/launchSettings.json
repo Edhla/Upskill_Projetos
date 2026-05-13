@@ -17,8 +17,8 @@
         }
       }
     },
-    "$schema": "https://json.schemastore.org/launchsettings.json",
     "iisSettings": {
+      "commandName": "IISExpress",
       "windowsAuthentication": false,
       "anonymousAuthentication": true,
       "iisExpress": {
@@ -26,5 +26,15 @@
         "sslPort": 44366
       }
     }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:58179/",
+      "sslPort": 44366
+    }
   }
+}
 }

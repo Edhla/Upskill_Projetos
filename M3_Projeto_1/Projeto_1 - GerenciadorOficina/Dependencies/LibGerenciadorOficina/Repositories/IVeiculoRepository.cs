@@ -12,10 +12,10 @@ namespace LibGerenciadorOficina.Repositories
         List<Veiculo> GetAll();
         Veiculo GetById(int id);
 
-        int Insert(Veiculo veiculo, SqlTransaction trans);
+        int Insert(Veiculo veiculo);
 
-        void Update(Veiculo veiculo, SqlTransaction trans);
+        void Update(Veiculo veiculo);
 
-        void Delete(int id, SqlTransaction trans);
+        void Delete(int id);
     }
 }

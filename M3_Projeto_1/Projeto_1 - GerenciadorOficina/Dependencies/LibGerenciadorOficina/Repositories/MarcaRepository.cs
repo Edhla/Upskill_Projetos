@@ -11,6 +11,7 @@ namespace LibGerenciadorOficina.Repositories
     public class MarcaRepository: IMarcaRepository
     {
         internal string ConnectionString = "";
+
         public void setDataBase(string tagRepo)
         {
             ConnectionString = Conection2Repo.GetRepoConection(tagRepo);
@@ -37,44 +38,50 @@ namespace LibGerenciadorOficina.Repositories
 
         }
 
-        public int Insert(Marca marca, SqlTransaction trans)
+        public int Insert(Marca marca)
         {
+            DALPro.ConnectionString = ConnectionString;
+
             string sql = @"INSERT INTO Marca
                        (NomeMarca) VALUES (@NomeMarca);
                        SELECT SCOPE_IDENTITY();";
 
             var param = new Dictionary<string, object>
-        {
-            {"@NomeMarca", marca.NomeMarca}
-        };
+            {
+                {"@NomeMarca", marca.NomeMarca}
+            };
 
-            return Convert.ToInt32(DALPro.ExecuteScalar(sql, param, trans));
+            return TransactionHelper.ExecuteScalar(sql, param);
         }
 
-        public void Update(Marca marca, SqlTransaction trans)
+        public void Update(Marca marca)
         {
-            string sql = @"INSERT INTO Marca
-                       (NomeMarca) VALUES (@NomeMarca);
-                       SELECT SCOPE_IDENTITY();";
+            DALPro.ConnectionString = ConnectionString;
+
+            string sql = @"UPDATE Marca
+                         SET NomeMarca = @NomeMarca
+                         WHERE ID = @IdMarca;";
 
             var param = new Dictionary<string, object>
         {
-            {"@NomeMarca", marca.NomeMarca}
+            {"@NomeMarca", marca.NomeMarca},
+            {"@IdMarca", marca.ID}
         };
-            DALPro.Execute(sql, param, trans);
+            TransactionHelper.Execute(sql, param);
 
         }
 
-        public void Delete(int id, SqlTransaction trans)
+        public void Delete(int id)
         {
+            DALPro.ConnectionString = ConnectionString;
+
             string sql = "DELETE FROM Marca WHERE ID=@id";
 
             var param = new Dictionary<string, object>
             {
                 {"@id", id}
             };
-
-            DALPro.Execute(sql, param, trans);
+            TransactionHelper.Execute(sql, param);
         }
     }
 }

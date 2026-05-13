@@ -37,7 +37,7 @@ namespace LibGerenciadorOficina.Repositories
 
         }
 
-        public int Insert(Modelo modelo, SqlTransaction trans)
+        public int Insert(Modelo modelo)
         {
             string sql = @"INSERT INTO Modelo
                        (NomeModelo) VALUES (@NomeModelo);
@@ -48,26 +48,25 @@ namespace LibGerenciadorOficina.Repositories
                 {"@NomeModelo", modelo.NomeModelo}
             };
 
-            return Convert.ToInt32(DALPro.ExecuteScalar(sql, param, trans));
-
+            return TransactionHelper.ExecuteScalar(sql, param);
         }
 
-        public void Update(Modelo modelo, SqlTransaction trans)
+        public void Update(Modelo modelo)
         {
-            string sql = @"INSERT INTO Modelo
-                       (NomeModelo) VALUES (@NomeModelo);
-                       SELECT SCOPE_IDENTITY();";
+            string sql = @"UPDATE Modelo
+                         SET NomeModelo = @NomeModelo
+                         WHERE ID = @IdMarca;";
 
             var param = new Dictionary<string, object>
             {
-                {"@NomeModelo", modelo.NomeModelo}
+                {"@NomeModelo", modelo.NomeModelo},
+                {"@IdMarca", modelo.ID}
             };
 
-            DALPro.Execute(sql, param, trans);
-
+            TransactionHelper.Execute(sql, param);
         }
 
-        public void Delete(int id, SqlTransaction trans)
+        public void Delete(int id)
         {
             string sql = "DELETE FROM Modelo WHERE ID=@id";
 
@@ -76,7 +75,7 @@ namespace LibGerenciadorOficina.Repositories
                 {"@id", id}
             };
 
-            DALPro.Execute(sql, param, trans);
+            TransactionHelper.Execute(sql, param);
         }
     }
 }

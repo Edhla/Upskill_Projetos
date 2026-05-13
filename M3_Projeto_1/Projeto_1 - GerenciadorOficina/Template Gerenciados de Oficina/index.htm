@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>Gestão de Veículos</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -21,7 +22,7 @@
             <input type="number" id="ano" placeholder="Ano" required />
             <input type="date" id="inspecao" required />
             <label><input type="checkbox" id="vendido" /> Vendido</label>
-            <button type="submit">Guardar</button>
+            <button id="guardar" type="submit">Guardar</button>
         </form>
 
         <h2>Filtros</h2>
@@ -53,46 +54,10 @@
         <tbody id="tabela"></tbody>
     </table>
 
-    <script>
-        function setDate(y, m, d) {
-            let tmp = new Date(y, m, d);
-            tmp.setMonth(tmp.getMonth() - 1);
-            return tmp;
-        }
-
-        function inspecaoEstado(data) {
-            const agora = new Date();
-            const diffMeses = (agora - data) / (1000 * 60 * 60 * 24 * 30);
-            if (diffMeses > 12) return '<span class="vendido">Expirada</span>';
-            if (diffMeses > 10) return '<span class="aviso">A expirar</span>';
-            return '<span class="ok">Válida</span>';
-        }
-
-        function editar(i) {
-            const v = veiculos[i];
-            document.getElementById('editIndex').value = i;
-            marca.value = v.marca;
-            modelo.value = v.modelo;
-            ano.value = v.ano;
-            inspecao.value = toInputDateLocal(v.ultimaInspecao); // sem fusos horários envolvidos
-            vendido.checked = v.vendido;
-        };
-
-        function toInputDateLocal(d) {
-            const pad = n => String(n).padStart(2, "0");
-            return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
-        }
-
-        function guardar() {
-            localStorage.setItem('veiculos', JSON.stringify(veiculos));
-        }
-
-
-        [fMarca, fAno, fVendido].forEach(f => f.addEventListener('change', render));
-
-        preencherFiltros();
-        render();
-    </script>
+    <script src="js/db.js"></script>
+    <script src="js/view.js"></script>
+    <script src="js/app.js"></script>
+    <script>initProgram()</script>
 </body>
 
 </html>

@@ -6,11 +6,11 @@ namespace WebAppiGnOfficina.Services
     public interface IMarcaService
     {
         List<MarcaDTO> GetAll();
-        Marca GetById(int id);
+        MarcaDTO GetById(int id);
 
-        int Insert(Marca marca);
+        int Insert(MarcaDTO marca);
 
-        void Update(Marca marca);
+        void Update(MarcaDTO marca);
 
         void Delete(int id);
     }

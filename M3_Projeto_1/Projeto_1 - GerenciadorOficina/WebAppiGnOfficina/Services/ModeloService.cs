@@ -1,5 +1,8 @@
-﻿using LibGerenciadorOficina.Models;
+﻿using LibGerenciadorOficina.DTOs;
+using LibGerenciadorOficina.Models;
 using LibGerenciadorOficina.Repositories;
+using Microsoft.Data.SqlClient;
+using System.Reflection;
 
 namespace WebAppiGnOfficina.Services
 {
@@ -12,33 +15,81 @@ namespace WebAppiGnOfficina.Services
             _repo = repo;
             _repo.setDataBase("DB_GerenciadorOficinaTeste");
         }
-        public List<Modelo> GetAll()
+        public List<ModeloDTO> GetAll()
         {
-            List<Modelo> marcas = new List<Modelo>();
-
-            return marcas;
+            return _repo.GetAll()
+                .Select(modelo => new ModeloDTO
+                {
+                    ID = modelo.ID,
+                    NomeModelo = modelo.NomeModelo
+                }).ToList();
         }
-        public Modelo GetById(int id)
+        public ModeloDTO GetById(int id)
         {
-            Modelo marca = null;
+            var m = _repo.GetById(id);
 
-            return marca;
+            if (m == null)
+            {
+                return null;
+            }
+
+            return new ModeloDTO
+            {
+                ID = m.ID,
+                NomeModelo = m.NomeModelo,
+            };
 
         }
 
-        public int Insert(Modelo marca)
+        public int Insert(ModeloDTO dto)
         {
+            try
+            {
+                Modelo m = new Modelo
+                {
+                    NomeModelo = dto.NomeModelo
+                };
+
+                int id = _repo.Insert(m);
+
+                return id;
+
+            }
+            catch
+            {
+                throw;
+            }
+
             return 0;
         }
 
-        public void Update(Modelo marca)
+        public void Update(ModeloDTO dto)
         {
-
+            try
+            {
+                Modelo m = new Modelo
+                {
+                    ID = dto.ID,
+                    NomeModelo = dto.NomeModelo
+                };
+                _repo.Update(m);
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public void Delete(int id)
         {
-
+            try
+            {
+                _repo.Delete(id);
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using LibGerenciadorOficina.DTOs;
 using LibGerenciadorOficina.Models;
 using LibGerenciadorOficina.Repositories;
+using Microsoft.Data.SqlClient;
 
 namespace WebAppiGnOfficina.Services
 {
@@ -22,27 +23,75 @@ namespace WebAppiGnOfficina.Services
                     NomeMarca = marca.NomeMarca
                 }).ToList();
         }
-        public Marca GetById(int id)
+        public MarcaDTO GetById(int id)
         {
-            Marca marca = null;
+            var m = _repo.GetById(id);
 
-            return marca;
+            if (m == null)
+            {
+                return null;
+            }
 
+            return new MarcaDTO
+            {
+                ID = m.ID,
+                NomeMarca = m.NomeMarca
+            };
         }
 
-        public int Insert(Marca marca)
+        public int Insert(MarcaDTO marca)
         {
+            try
+            {
+                Marca m = new Marca
+                {
+                    NomeMarca = marca.NomeMarca
+                };
+
+                int id = _repo.Insert(m);
+
+                return id;
+
+            }
+            catch
+            {
+                throw;
+            }
+
             return 0;
         }
 
-        public void Update(Marca marca)
+        public void Update(MarcaDTO marca)
         {
+            try
+            {
+                if (GetById(marca.ID) != null)
+                {
+                    Marca m = new Marca
+                    {
+                        ID = marca.ID,
+                        NomeMarca = marca.NomeMarca
+                    };
 
+                    _repo.Update(m);
+                }
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public void Delete(int id)
         {
-
+            try
+            {
+                _repo.Delete(id);
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

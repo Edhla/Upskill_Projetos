@@ -1,3 +1,4 @@
+using LibGerenciadorOficina.DTOs;
 using LibGerenciadorOficina.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -98,10 +99,134 @@ namespace WebAppiGnOfficina
 
             #region Endpoints
             app.MapGet("/", () => "WebApi - Gerenciador de oficina");
+
+            // Endpoints de Marcas
+            // Get ALL
             app.MapGet("/marcas", (IMarcaService service) =>
             {
 
                 return service.GetAll();
+            });
+
+            // Get by ID
+            app.MapGet("/marcas/{id}", (int id, IMarcaService service) =>
+            {
+                var m = service.GetById(id);
+
+                return m == null ? Results.NotFound() : Results.Ok(m);
+            });
+
+            // Insert
+
+            app.MapPost("/marcas", (MarcaDTO marca, IMarcaService service) =>
+            {
+                int id = service.Insert(marca);
+
+                return Results.Created($"/marcas/{id}", new { id });
+            });
+
+            // Update
+
+            app.MapPut("/marcas", (MarcaDTO dto, IMarcaService service) =>
+            {
+                service.Update(dto);
+
+                return Results.Ok();
+            });
+
+            // Delete
+
+            app.MapDelete("/marcas/{id}", (int id, IMarcaService service) =>
+            {
+                service.Delete(id);
+
+                return Results.Ok();
+            });
+
+            // Endpoints de Modelos
+            // Get ALL
+            app.MapGet("/modelos", (IModeloService service) =>
+            {
+
+                return service.GetAll();
+            });
+
+            // Get by ID
+            app.MapGet("/modelos/{id}", (int id, IModeloService service) =>
+            {
+                var m = service.GetById(id);
+
+                return m == null ? Results.NotFound() : Results.Ok(m);
+            });
+
+            // Insert
+
+            app.MapPost("/modelos", (ModeloDTO dto, IModeloService service) =>
+            {
+                int id = service.Insert(dto);
+
+                return Results.Created($"/marcas/{id}", new { id });
+            });
+
+            // Update
+
+            app.MapPut("/modelos", (ModeloDTO dto, IModeloService service) =>
+            {
+                service.Update(dto);
+
+                return Results.Ok();
+            });
+
+            // Delete
+
+            app.MapDelete("/modelos/{id}", (int id, IModeloService service) =>
+            {
+                service.Delete(id);
+
+                return Results.Ok();
+            });
+
+            // Endpoints de Veiculos
+            // Get ALL
+            app.MapGet("/veiculos", (IVeiculoService service) =>
+            {
+
+                return service.GetAll();
+            });
+
+            // Get by ID
+            app.MapGet("/veiculos/{id}", (int id, IVeiculoService service) =>
+            {
+                var v = service.GetById(id);
+
+                return v == null ? Results.NotFound() : Results.Ok(v);
+            });
+
+            // Insert
+
+            app.MapPost("/veiculos", (VeiculoDTO dto, IVeiculoService service) =>
+            {
+                int id = service.Insert(dto);
+
+                return Results.Created($"/veiculos/{id}", new { id });
+            });
+
+            // Update
+
+            app.MapPut("/veiculos", (VeiculoDTO dto, IVeiculoService service) =>
+            {
+                service.Update(dto);
+
+                return Results.Ok();
+            });
+
+            // Delete
+
+            app.MapDelete("/veiculos/{id}", (int id, IVeiculoService service) =>
+            {
+                service.Delete(id);
+
+                return Results.Ok();
             });
 
             #endregion
